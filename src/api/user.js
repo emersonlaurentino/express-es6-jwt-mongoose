@@ -1,16 +1,22 @@
 import resource from 'resource-router-middleware';
-import { merge, get } from 'lodash/fp';
+import { merge, get, isEmpty } from 'lodash/fp';
 import resMessage from '../lib/res-message';
 import UserModel from '../models/user';
 
-const addFullNameToBody = body => merge({
-	name: {
-		full: `${get('name.first', body)} ${get('name.last', body)}`
-	},
-}, body);
+const addFullNameToBody = body => {
+	if (isEmpty(get('name', body))) {
+		return body;
+	}
+
+	return merge({
+		name: {
+			full: `${get('name.first', body)} ${get('name.last', body)}`
+		},
+	}, body);
+};
 
 const userApi = resource({
-	id: 'user',
+	id: 'userId',
 
 	index({ params }, res) {
 		UserModel.find()
@@ -18,25 +24,21 @@ const userApi = resource({
 			.catch(error => res.status(400).send(error))
 	},
 
-	read({ params: { user } }, res) {
-		UserModel.findById(user)
+	read({ params: { userId } }, res) {
+		UserModel.findById(userId)
 			.then(result => res.send(result))
 			.catch(() => res.status(404).send(resMessage('User not found.')))
 	},
 
-	update({ params: { user }, body }, res) {
-		UserModel.findByIdAndUpdate(user, addFullNameToBody(body))
-			.then(() => UserModel.findById(user).then(result => res.send(result)))
+	update({ params: { userId }, body }, res) {
+		UserModel.findByIdAndUpdate(userId, addFullNameToBody(body))
+			.then(() => UserModel.findById(userId).then(result => res.send(result)))
 			.catch(() => res.status(404).send(resMessage('User not found.')))
 	},
 
-	delete({ params: { user } }, res) {
-		UserModel.findById(user)
-			.then(result => result.remove(err => {
-				if (err) res.status(400).send(err);
-
-				res.send(resMessage('User successfully seleted!'))
-			}))
+	delete({ params: { userId } }, res) {
+		UserModel.findByIdAndRemove(userId)
+			.then(() => res.send(resMessage('User successfully deleted!')))
 			.catch(() => res.status(404).send(resMessage('User not found.')))
 	}
 });
