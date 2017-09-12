@@ -4,6 +4,9 @@
   "description": "A basic project for an ES6 RESTful Express server with JWT, Passport and Mongoose",
   "main": "dist",
   "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "jest --coverage",
     "dev": "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
     "start": "node dist",
@@ -53,6 +56,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "coveralls": "^2.13.1",
     "eslint": "^3.1.1",
+    "jest": "^21.0.2",
     "nodemon": "^1.9.2",
     "winston": "^2.3.1"
   },
