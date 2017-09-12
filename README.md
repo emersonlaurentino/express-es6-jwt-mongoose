@@ -1,5 +1,7 @@
 A basic project for an ES6 RESTful Express server with JWT, Passport and Mongoose.
 ==================================
+[![Build Status](https://travis-ci.org/emersonlaurentino/express-es6-jwt-mongoose.svg?branch=master)](https://travis-ci.org/emersonlaurentino/express-es6-jwt-mongoose)
+[![Coverage Status](https://coveralls.io/repos/github/emersonlaurentino/express-es6-jwt-mongoose/badge.svg?branch=master)](https://coveralls.io/github/emersonlaurentino/express-es6-jwt-mongoose?branch=master)
 
 Get started
 ---------------
