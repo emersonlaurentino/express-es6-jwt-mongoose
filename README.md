@@ -10,7 +10,7 @@ git clone git@github.com:emersonlaurentino/express-es6-jwt-mongoose.git
 cd express-es6-jwt-mongoose
 
 # Make it your own
-rm -rf .git && git init && npm init
+rm -rf .git && git init
 
 # install dependences
 npm i
